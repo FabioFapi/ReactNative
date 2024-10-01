@@ -1,9 +1,9 @@
-import { Text, View, FlatList, ListRenderItem } from "react-native";
+import { Text, View, FlatList, ListRenderItem, TextInput} from "react-native";
 import { Card, cards } from "@/api/data.mock";
 import { CardComponent } from "@/components/molecules/cardComponent/cardComponent.molecule";
 import { useState } from "react";
 import { ButtonComponent } from "@/components/atoms/button/button.atom";
-
+/*
 export default function Index() {
   const[counter, setCounter] = useState(0);
   const [resetCounter, setResetCounter] = useState(0);
@@ -16,6 +16,23 @@ export default function Index() {
   const resetOnPress = (): void => {
     setCounter((prevState) => (prevState = 0));
     setResetCounter(1);
+  };
+*/
+export default function App() {
+  const [inputText, setInputText] = useState('');
+  const [displayText, setDisplayText] = useState('');
+/*
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+*/
+  const handleShowText = () => {
+    setDisplayText(inputText);
+  };
+
+  const handleReset = () => {
+    setInputText('');
+    setDisplayText('');
   };
 
 
@@ -68,7 +85,7 @@ export default function Index() {
     />
   );
 }
-*/
+
 return (
   <View style={{ flex: 1 , justifyContent: "center"}}>
     <Text style={{fontSize: 18, paddingVertical: 32, textAlign: "center"}}>Counter:{counter}</Text>
@@ -77,4 +94,30 @@ return (
     <ButtonComponent title="Non Finocchio" onPress={resetOnPress} disabled={counter <= 9 ? true : false}></ButtonComponent>
   </View>
 )
+  */
+
+  return (
+    <View>
+      <h1 >Text Display App</h1>
+      <SafeAreaView>
+        <TextInput
+          placeholder="BANANE DA PER TUTTOOO"
+          value={inputText}
+          onChange={ (e) => {
+            setInputText(e.target.value)}}
+        />
+        <View>
+          <ButtonComponent onClick={handleShowText}>
+            Mostra Testo
+          </ButtonComponent>
+          <ButtonComponent onClick={handleReset} >
+            Reset
+          </ButtonComponent>
+        </View>
+        <Text style={{fontSize: 18, paddingVertical: 32, textAlign: "center"}}>
+          Testo visualizzato:{displayText}
+        </Text>
+      </SafeAreaView>
+    </View>
+  );
 }
