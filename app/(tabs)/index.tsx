@@ -35,8 +35,7 @@ const onChangeName = () => {
 return (
   <View style={{ flex: 1 , justifyContent: "center"}}>
     <Text style={{fontSize: 18, paddingVertical: 32, textAlign: "center"}}>{user.name}</Text>
-    <ButtonComponent title="+1" onPress={onPress} disabled={false}></ButtonComponent>
-    <ButtonComponent title="+5" onPress={onPress5} ></ButtonComponent>
+    <ButtonComponent title="+1" onPress={onChangeName} >ChangeName</ButtonComponent>
   </View>
 )
 }
