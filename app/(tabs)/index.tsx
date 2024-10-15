@@ -1,41 +1,31 @@
-import { Text, View, FlatList, ListRenderItem } from "react-native";
-import { Card, cards } from "@/api/data.mock";
-import { CardComponent } from "@/components/molecules/cardComponent/cardComponent.molecule";
-import { useState } from "react";
-import { ButtonComponent } from "@/components/atoms/button/button.atom";
+import React from 'react';
+import { Text, View } from 'react-native';
+import { ButtonComponent } from '@/components/atoms/button/button.atom';
+import { useMemo, useState } from 'react';
 
 export default function Index() {
-  const[name, setName] = useState("Giorgia");
+  const [name, setName] = useState('Mario');
 
-  const onPress = (): void => {
-    setCounter((prevState) => (prevState + 1));
+  // ** CALLBACKS  ** //
+  const onChangeName = () => {
+    setName('Luigi');
   };
 
-  const onPress5 = (): void => {
-
-    for(var i; i< 5; i++){
-      onPress()
-    }
-
-  };
-
-const onChangeName = () => {
-  setName("Fabio")
-};
+  console.log('name', name);
 
   const user = useMemo(() => {
-    return{
-    name: name,
-    surname:"Piazza",
-    age:20,
-  };
-}, [name]);
+    return {
+      name: name,
+      surname: 'Rossi',
+      age: 25,
+    };
+  }, [name]);
 
-
-return (
-  <View style={{ flex: 1 , justifyContent: "center"}}>
-    <Text style={{fontSize: 18, paddingVertical: 32, textAlign: "center"}}>{user.name}</Text>
-    <ButtonComponent title="+1" onPress={onChangeName} >ChangeName</ButtonComponent>
-  </View>
-)
+  // ** UI  ** //
+  return (
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <Text style={{ fontSize: 18, paddingVertical: 32, textAlign: 'center' }}>{user.name}</Text>
+      <ButtonComponent title="Cliccami" onPress={onChangeName} />
+    </View>
+  );
 }
