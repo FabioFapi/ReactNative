@@ -1,41 +1,78 @@
-import { Text, View, FlatList, ListRenderItem } from "react-native";
-import { Card, cards } from "@/api/data.mock";
-import { CardComponent } from "@/components/molecules/cardComponent/cardComponent.molecule";
-import { useState } from "react";
-import { ButtonComponent } from "@/components/atoms/button/button.atom";
+import { Button, Text, View } from 'react-native';
+import { ButtonComponent } from '@/components/atoms/button/button.atom';
+import { useCallback, useEffect, useState } from 'react';
+import { TextInputComponent } from '@/components/atoms/textInput/textInput.atom';
+import { useMemo } from 'react';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default function Index() {
-  const[name, setName] = useState("Giorgia");
+  const [quantity, setQuantity] = useState(1);
+  const [text, setText] = useState('');
+  const [shownText, setShownText] = useState('');
 
-  const onPress = (): void => {
-    setCounter((prevState) => (prevState + 1));
+  useEffect(() => {
+    alert('Benvenuto');
+  }, []);
+
+  useEffect(() => {
+    setShownText(text);
+  }, [text]);
+
+  const onChangedText = (newText: string) => {
+    setText(newText);
   };
 
-  const onPress5 = (): void => {
+  //useMemo
+  const productPrice = useMemo(() => {
+    return {
+      price: 30,
+      quantity: quantity,
+      discount: 10,
+      additionalPrice: 5,
+    };
+  }, [quantity]);
 
-    for(var i; i< 5; i++){
-      onPress()
-    }
-
+  // ** CALLBACKS  ** //
+  const onPressAddOne = () => {
+    setQuantity((prevState) => prevState + 1);
   };
 
-const onChangeName = () => {
-  setName("Fabio")
-};
-
-  const user = useMemo(() => {
-    return{
-    name: name,
-    surname:"Piazza",
-    age:20,
+  const onPressRemoveOne = () => {
+    setQuantity((prevState) => (prevState == 1 ? 1 : prevState - 1));
   };
-}, [name]);
 
+  const calculatePrice = useMemo(() => {
+    return {
+      totalPrice:
+        (productPrice.price - productPrice.discount) * quantity + productPrice.additionalPrice,
+    };
+  }, [quantity]);
 
-return (
-  <View style={{ flex: 1 , justifyContent: "center"}}>
-    <Text style={{fontSize: 18, paddingVertical: 32, textAlign: "center"}}>{user.name}</Text>
-    <ButtonComponent title="+1" onPress={onChangeName} >ChangeName</ButtonComponent>
-  </View>
-)
+  const incrementQuantity = useCallback(onPressAddOne, []);
+  const decrementQuantity = useCallback(onPressRemoveOne, []);
+
+  // ** UI  ** //
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+      <Text style={{ fontSize: 18, paddingVertical: 32, textAlign: 'center' }}>
+        Price: ${productPrice.price}
+        {'\n'}
+        Discount: ${productPrice.discount}
+        {'\n'}
+        Quantity: {productPrice.quantity}
+        {'\n'}
+        Additional Price: ${productPrice.additionalPrice}
+        {'\n'}
+        Total: ${calculatePrice.totalPrice}
+      </Text>
+      <TextInput
+        style={{ fontSize: 18, paddingVertical: 32, textAlign: 'center' }}
+        value={text}
+        onChangeText={onChangedText}
+        placeholder="ciao"></TextInput>
+      <Text style={{ fontSize: 18, paddingVertical: 32, textAlign: 'center' }}>{shownText}</Text>
+      <ButtonComponent title="Add 1" onPress={incrementQuantity} />
+      <ButtonComponent style={{ margin: 5 }} title="Remove 1" onPress={decrementQuantity} />
+    </View>
+  );
 }
