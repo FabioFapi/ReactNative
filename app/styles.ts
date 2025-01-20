@@ -3,39 +3,23 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    padding: 16,
   },
-  textInput: {
-    flex: 1,
-    height: 40,
-    borderColor: 'gray',
-    backgroundColor: '#f9f9f9',
-    borderWidth: 1,
-    marginBottom: 16,
+  itemSeparator: {
+    height: 20,
   },
-  emptyTextInput: {
-    flex: 1,
-    height: 40,
-    borderColor: 'red',
-    backgroundColor: '#f9f9f9',
-    borderWidth: 1,
-    marginBottom: 16,
+  detailItem: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  textInputContainer: {
-    flexDirection: 'row',
-  },
-  filtersContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  buttonStyle: {
-    borderWidth: 1,
-    borderColor: 'rgb(51,184,196)',
-    padding: 8,
-    borderRadius: 10,
-  },
-  activeFilter: {
-    borderColor: 'red',
+  backButton: {
+    width: 24,
+    height: 24,
   },
 });
